@@ -3,9 +3,219 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Contact-App</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+            rel="stylesheet">
+        <link rel="stylesheet" href="src/css/output.css">
+        <title>Dashboard</title>
     </head>
-    <body>
-        <h1>About Contact Application</h1>
-    </body>
-</html>
+    <body class="text-gray-800 font-inter">
+
+        <!-- start: Sidebar -->
+        <div
+            class="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 sidebar-menu transition-transform">
+            <a href="#"
+                class="flex items-center pb-4 border-b border-b-gray-800">
+                <img src="https://placehold.co/32x32" alt
+                    class="w-8 h-8 rounded object-cover">
+                <span
+                    class="text-lg font-bold text-white ml-3">Contact-app</span>
+            </a>
+            <ul class="mt-4">
+                <li class="mb-1 group active">
+                    <a href="#"
+                        class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                        <i class="ri-add-line mr-3 text-lg"></i>
+                        <button class="text-sm" @click="modal = true">Add
+                            Contact</button>
+                    </a>
+
+                </li>
+                <li class="mb-1 group">
+                    <a href="#"
+                        class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                        <i class="ri-home-2-line mr-3 text-lg"></i>
+                        <span class="text-sm">Dashboard</span>
+                    </a>
+                </li>
+                <li class="mb-1 group">
+
+                    <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+                        <li class="mb-4">
+                            <a href="#"
+                                class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Active
+                                Contact</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#"
+                                class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Completed
+                                order</a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#"
+                                class="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Canceled
+                                order</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mb-1 group">
+                    <a href="#"
+                        class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md group-[.active]:bg-gray-800 group-[.active]:text-white group-[.selected]:bg-gray-950 group-[.selected]:text-gray-100">
+                        <i class="ri-settings-2-line mr-3 text-lg"></i>
+                        <span class="text-sm">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div
+            class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+        <!-- end: Sidebar -->
+
+        <!-- start: Main -->
+        <main
+            class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 min-h-screen transition-all main">
+            <div
+                class="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
+                <button type="button"
+                    class="text-lg text-gray-600 sidebar-toggle">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <ul class="flex items-center text-sm ml-4">
+                    <li class="mr-2">
+                        <a href="#"
+                            class="text-gray-400 hover:text-gray-600 font-medium">Dashboard</a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <div class="p-6">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    <div
+                        class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+                        <div class="flex justify-between mb-6">
+                            <div>
+                                <div
+                                    class="text-2xl font-semibold mb-1">2</div>
+                                <div
+                                    class="text-sm font-medium text-gray-400">Active
+                                    contact</div>
+                            </div>
+
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-full bg-gray-100 rounded-full h-4">
+                                <div class="h-full bg-blue-500 rounded-full p-1"
+                                    style="width: 2%;">
+                                    <div
+                                        class="w-2 h-2 rounded-full bg-white ml-auto"></div>
+                                </div>
+                            </div>
+                            <span
+                                class="text-sm font-medium text-gray-600 ml-4">2%</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+                        <div class="flex justify-between mb-4">
+                            <div>
+                                <div class="flex items-center mb-1">
+                                    <div
+                                        class="text-2xl font-semibold">324</div>
+                                    <div
+                                        class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
+                                </div>
+                                <div
+                                    class="text-sm font-medium text-gray-400">Visitors</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div
+                        class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+                        <div class="flex justify-between mb-6">
+                            <div>
+                                <div class="text-2xl font-semibold mb-1">2</div>
+                                <div
+                                    class="text-sm font-medium text-gray-400">Active
+                                    users</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+                    <div
+                        class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md">
+                        <div class="flex mb-4 items-start">
+
+                            <div class="font-medium">Contact List</div>
+                            <div>
+
+                                <table
+                                    class="table-fixed class w-full min-w-[540px]">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama </th>
+                                            <th>Nomor HP</th>
+                                            <th>E-mail</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Rima Ausia</td>
+                                            <td>+6211111111111</td>
+                                            <td>rama@gmail.com</td>
+                                            <td>Edit</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Affan Akbar</td>
+                                            <td>+6211111111111</td>
+                                            <td>rama@gmail.com</td>
+                                            <td>Edit</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Affan Akbar</td>
+                                            <td>+6211111111111</td>
+                                            <td>rama@gmail.com</td>
+                                            <td>Edit</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+            <!-- end: Main -->
+
+            <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+            <script src="./src/js/script.js"></script>
+            <!-- Script to handle modal behavior -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                const modal = document.getElementById('modal');
+                const modalTrigger = document.querySelector('.modal-trigger');
+
+                modalTrigger.addEventListener('click', function () {
+                    modal.classList.toggle('hidden');
+      });
+    });
+            </script>
+        </body>
+    </html>
