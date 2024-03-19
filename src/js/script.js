@@ -34,12 +34,7 @@ function showData() {
     html += "<td>" + element.phone + "</td>";
     html += "<td>" + element.email + "</td>";
     html += "<td>" + element.address + "</td>";
-    html +=
-      '<td><button onclick="deleteData(' +
-      index +
-      ')" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateData(' +
-      index +
-      ')" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>';
+    html += `<td><button onclick="deleteData(${index})" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateData(${index})" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>`;
     html += "</tr>";
   });
   document.querySelector("#crudTable tbody").innerHTML = html;
@@ -97,7 +92,7 @@ function updateData(index) {
   document.getElementById("email").value = contactList[index].email;
   document.getElementById("address").value = contactList[index].address;
 
-  document.querySelector("#Update").onclick = function () {
+  document.querySelector("#update").onclick = function () {
     if (validateForm() == true) {
       contactList[index].name = document.getElementById("name").value;
       contactList[index].phone = document.getElementById("phone").value;
@@ -109,8 +104,8 @@ function updateData(index) {
       document.getElementById("phone").value = "";
       document.getElementById("email").value = "";
       document.getElementById("address").value = "";
-      document.getElementById("Submit").style.display = "block";
-      document.getElementById("Update").style.display = "none";
+      document.getElementById("submit").style.display = "block";
+      document.getElementById("update").style.display = "none";
     }
   };
 }
