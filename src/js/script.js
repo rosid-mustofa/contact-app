@@ -21,6 +21,8 @@ function validateForm() {
   return true;
 }
 function showData() {
+  document.getElementById("update").style.display = "none";
+
   var contactList;
   if (localStorage.getItem("contactList") == null) {
     contactList = [];
