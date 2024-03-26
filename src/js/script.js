@@ -40,7 +40,7 @@ function showContext() {
             <td>${element.phone}</td>
             <td>${element.email}</td>
             <td>${element.address}</td>
-            <td><button onclick="deleteContext(${index})" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateContext(${index})" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>
+            <td style="display: flex; justify-content: space-between; align-items: center;"><button onclick="deleteContext(${index})" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateContext(${index})" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>
 		    </tr>`;
 	});
 
