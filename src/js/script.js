@@ -33,7 +33,7 @@ function showContext() {
 		contacts = JSON.parse(localStorage.getItem("contacts"));
 	}
 
-	var html = "";
+	let html = "";
 	contacts.forEach(function (element, index) {
 		html += `<tr>
             <td>${element.name}</td>
