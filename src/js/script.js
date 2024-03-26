@@ -136,14 +136,14 @@ function updateContext(index) {
 	};
 }
 function searchContacts() {
-	var searchText = document.getElementById("searchInput").value.toLowerCase();
-	var rows = document.querySelectorAll("#tableContext tbody tr");
+	let searchText = document.getElementById("searchInput").value.toLowerCase();
+	let rows = document.querySelectorAll("#tableContext tbody tr");
 
 	rows.forEach(function (row) {
-		var name = row.cells[0].innerText.toLowerCase();
-		var phone = row.cells[1].innerText.toLowerCase();
-		var email = row.cells[2].innerText.toLowerCase();
-		var address = row.cells[3].innerText.toLowerCase();
+		let name = row.cells[0].innerText.toLowerCase();
+		let phone = row.cells[1].innerText.toLowerCase();
+		let email = row.cells[2].innerText.toLowerCase();
+		let address = row.cells[3].innerText.toLowerCase();
 
 		if (
 			name.includes(searchText) ||
