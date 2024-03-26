@@ -45,8 +45,11 @@ function showContext() {
 	});
 
 	document.querySelector("#tableContext tbody").innerHTML = html;
+	document
+		.getElementById("searchInput")
+		.addEventListener("input", searchContacts);
+	document.onload = showContext();
 }
-document.onload = showContext();
 
 function addContext() {
 	if (validateContextForm() == true) {
@@ -132,3 +135,27 @@ function updateContext(index) {
 		}
 	};
 }
+function searchContacts() {
+	var searchText = document.getElementById("searchInput").value.toLowerCase();
+	var rows = document.querySelectorAll("#tableContext tbody tr");
+
+	rows.forEach(function (row) {
+		var name = row.cells[0].innerText.toLowerCase();
+		var phone = row.cells[1].innerText.toLowerCase();
+		var email = row.cells[2].innerText.toLowerCase();
+		var address = row.cells[3].innerText.toLowerCase();
+
+		if (
+			name.includes(searchText) ||
+			phone.includes(searchText) ||
+			email.includes(searchText) ||
+			address.includes(searchText)
+		) {
+			row.style.display = ""; // Menampilkan baris jika cocok dengan kata kunci pencarian
+		} else {
+			row.style.display = "none"; // Menyembunyikan baris jika tidak cocok dengan kata kunci pencarian
+		}
+	});
+	// Memanggil fungsi showContext saat dokumen selesai dimuat
+}
+document.onload = showContext();
