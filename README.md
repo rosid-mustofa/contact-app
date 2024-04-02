@@ -8,6 +8,11 @@ Modern contact apps often come with additional features to enhance usability and
 Overall, a contact app plays a crucial role in helping users stay connected and organized in both personal and professional settings, making it an essential tool in today's digital age.
 
 # Feature
+1.Create Contact New
+2.Edit Contact
+3.Delete Contact
+4.Search Contact
 
 # Link Website
+https://contact-app.rosidmustofa.com
 
