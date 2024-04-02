@@ -26,7 +26,7 @@ function validateContactForm() {
 	return true;
 }
 
-function showContacts() {
+function showContacts(page = 1, itemsPerPage = 3) {
 	document.getElementById("update").style.display = "none";
 	document.getElementById("submit").style.display = "";
 
@@ -37,23 +37,41 @@ function showContacts() {
 		contacts = JSON.parse(localStorage.getItem("contacts"));
 	}
 
+	const startIndex = (page - 1) * itemsPerPage;
+	const endIndex = startIndex + itemsPerPage;
+	const paginatedContacts = contacts.slice(startIndex, endIndex);
+
 	let html = "";
-	contacts.forEach(function (element, index) {
+	paginatedContacts.forEach(function (element, index) {
 		const row = document.createElement("tr");
 		html += `<tr>
             <td>${element.name}</td>
             <td>${element.phone}</td>
             <td>${element.email}</td>
             <td>${element.address}</td>
-            <td style="display: flex; justify-content: space-between; align-items: center;"><button onclick="deleteContact(${index})" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateContact(${index})" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>
-		    </tr>`;
+            <td style="display: flex; justify-content: space-between; align-items: center;">
+                <button onclick="deleteContact(${index})" class ="bg-blue-500 hover:bg-green-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button>
+                <button onclick="updateContact(${index})" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button>
+            </td>
+        </tr>`;
 	});
 
 	document.querySelector("#contactList tbody").innerHTML = html;
+
+	// Create pagination links
+	const totalPages = Math.ceil(contacts.length / itemsPerPage);
+	let paginationHtml = "";
+	for (let i = 1; i <= totalPages; i++) {
+		paginationHtml += `<button onclick="showContacts(${i}, ${itemsPerPage})">${i}</button>`;
+	}
+	document.querySelector("#pagination").innerHTML = paginationHtml;
+	searchParams.delete("param2");
+	location.search = searchParams.toString();
+	console.log(location.href);
+
 	document
 		.getElementById("searchInput")
 		.addEventListener("input", searchContacts);
-	window.onload = showContacts();
 }
 
 function addContact() {
