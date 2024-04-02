@@ -65,10 +65,6 @@ function showContacts(page = 1, itemsPerPage = 3) {
 		paginationHtml += `<button onclick="showContacts(${i}, ${itemsPerPage})">${i}</button>`;
 	}
 	document.querySelector("#pagination").innerHTML = paginationHtml;
-	searchParams.delete("param2");
-	location.search = searchParams.toString();
-	console.log(location.href);
-
 	document
 		.getElementById("searchInput")
 		.addEventListener("input", searchContacts);
@@ -95,16 +91,16 @@ function addContact() {
 		});
 
 		localStorage.setItem("contacts", JSON.stringify(contacts));
+		const searchParams = new URLSearchParams(location.search);
+		searchParams.delete("param2");
+		location.search = searchParams.toString();
+		console.log(location.href);
+
 		document.getElementById("name").value = "";
 		document.getElementById("phone").value = "";
 		document.getElementById("email").value = "";
 		document.getElementById("address").value = "";
 
-		const searchParams = new URLSearchParams(location.search);
-
-		searchParams.delete("param2");
-		location.search = searchParams.toString();
-		console.log(location.href);
 		showContacts();
 	}
 }
@@ -146,10 +142,6 @@ function updateContact(index) {
 			contacts[index].address = document.getElementById("address").value;
 
 			localStorage.setItem("contacts", JSON.stringify(contacts));
-			const searchParams = new URLSearchParams(location.search);
-			searchParams.delete("param2");
-			location.search = searchParams.toString();
-			console.log(location.href);
 
 			showContacts();
 
@@ -164,26 +156,35 @@ function updateContact(index) {
 	};
 }
 
-function searchContacts() {
-	let searchText = document.getElementById("searchInput").value.toLowerCase();
-	let rows = document.querySelectorAll("#contactList tbody tr");
+document.addEventListener("DOMContentLoaded", function () {
+	function searchContacts() {
+		let searchText = document.getElementById("searchInput").value.toLowerCase();
+		let rows = document.querySelectorAll("#contactList tbody tr");
 
-	rows.forEach(function (row) {
-		let name = row.cells[0].innerText.toLowerCase();
-		let phone = row.cells[1].innerText.toLowerCase();
-		let email = row.cells[2].innerText.toLowerCase();
-		let address = row.cells[3].innerText.toLowerCase();
+		rows.forEach(function (row) {
+			let name = row.cells[0].innerText.toLowerCase();
+			let phone = row.cells[1].innerText.toLowerCase();
+			let email = row.cells[2].innerText.toLowerCase();
+			let address = row.cells[3].innerText.toLowerCase();
 
-		if (
-			name.includes(searchText) ||
-			phone.includes(searchText) ||
-			email.includes(searchText) ||
-			address.includes(searchText)
-		) {
-			row.style.display = "";
-		} else {
-			row.style.display = "none";
-		}
-	});
-}
-document.onload = showContacts();
+			if (
+				name.includes(searchText) ||
+				phone.includes(searchText) ||
+				email.includes(searchText) ||
+				address.includes(searchText)
+			) {
+				row.style.display = "";
+			} else {
+				row.style.display = "none";
+			}
+		});
+	}
+
+	// Assuming you have an input element with the ID "searchInput"
+	document
+		.getElementById("searchInput")
+		.addEventListener("input", searchContacts);
+
+	// Assuming you have a function named showContacts to display the initial list of contacts
+	showContacts(); // Call the function to initially display all contacts
+});
