@@ -1,4 +1,4 @@
-function validateContextForm() {
+function validateContactForm() {
 	let name = document.getElementById("name").value;
 	let phone = document.getElementById("phone").value;
 	let email = document.getElementById("email").value;
@@ -12,6 +12,10 @@ function validateContextForm() {
 		alert("phone is required");
 		return false;
 	}
+	if (address == "") {
+		alert("address is required");
+		return false;
+	}
 	if (email == "") {
 		alert("email is required");
 		return false;
@@ -22,7 +26,7 @@ function validateContextForm() {
 	return true;
 }
 
-function showContext() {
+function showContacts() {
 	document.getElementById("update").style.display = "none";
 	document.getElementById("submit").style.display = "";
 
@@ -35,28 +39,29 @@ function showContext() {
 
 	let html = "";
 	contacts.forEach(function (element, index) {
+		const row = document.createElement("tr");
 		html += `<tr>
             <td>${element.name}</td>
             <td>${element.phone}</td>
             <td>${element.email}</td>
             <td>${element.address}</td>
-            <td style="display: flex; justify-content: space-between; align-items: center;"><button onclick="deleteContext(${index})" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateContext(${index})" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>
+            <td style="display: flex; justify-content: space-between; align-items: center;"><button onclick="deleteContact(${index})" class ="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md focus:outline-none">Delete</button><button onclick="updateContact(${index})" class = "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none pl-3"> Edit</button></td>
 		    </tr>`;
 	});
 
-	document.querySelector("#tableContext tbody").innerHTML = html;
+	document.querySelector("#contactList tbody").innerHTML = html;
 	document
 		.getElementById("searchInput")
 		.addEventListener("input", searchContacts);
-	document.onload = showContext();
+	window.onload = showContacts();
 }
 
-function addContext() {
-	if (validateContextForm() == true) {
-		var name = document.getElementById("name").value;
-		var phone = document.getElementById("phone").value;
-		var email = document.getElementById("email").value;
-		var address = document.getElementById("address").value;
+function addContact() {
+	if (validateContactForm() == true) {
+		let name = document.getElementById("name").value;
+		let phone = document.getElementById("phone").value;
+		let email = document.getElementById("email").value;
+		let address = document.getElementById("address").value;
 
 		let contacts;
 		if (localStorage.getItem("contacts") == null) {
@@ -72,14 +77,21 @@ function addContext() {
 		});
 
 		localStorage.setItem("contacts", JSON.stringify(contacts));
-		showContext();
 		document.getElementById("name").value = "";
 		document.getElementById("phone").value = "";
 		document.getElementById("email").value = "";
 		document.getElementById("address").value = "";
+
+		const searchParams = new URLSearchParams(location.search);
+
+		searchParams.delete("param2");
+		location.search = searchParams.toString();
+		console.log(location.href);
+		showContacts();
 	}
 }
-function deleteContext(index) {
+
+function deleteContact(index) {
 	let contacts;
 	if (localStorage.getItem("contacts") == null) {
 		contacts = [];
@@ -89,9 +101,10 @@ function deleteContext(index) {
 
 	contacts.splice(index, 1);
 	localStorage.setItem("contacts", JSON.stringify(contacts));
-	showContext();
+	showContacts();
 }
-function updateContext(index) {
+
+function updateContact(index) {
 	document.getElementById("submit").style.display = "none";
 	document.getElementById("update").style.display = "block";
 
@@ -102,42 +115,40 @@ function updateContext(index) {
 		contacts = JSON.parse(localStorage.getItem("contacts"));
 	}
 
-	// Menampilkan data yang akan diperbarui dalam formulir
 	document.getElementById("name").value = contacts[index].name;
 	document.getElementById("phone").value = contacts[index].phone;
 	document.getElementById("email").value = contacts[index].email;
 	document.getElementById("address").value = contacts[index].address;
 
-	// Menangani aksi ketika tombol "Update" diklik
 	document.getElementById("update").onclick = function () {
-		if (validateContextForm() == true) {
-			// Memperbarui data kontak yang dipilih
+		if (validateContactForm() == true) {
 			contacts[index].name = document.getElementById("name").value;
 			contacts[index].phone = document.getElementById("phone").value;
 			contacts[index].email = document.getElementById("email").value;
 			contacts[index].address = document.getElementById("address").value;
 
-			// Menyimpan data yang diperbarui kembali ke local storage
 			localStorage.setItem("contacts", JSON.stringify(contacts));
+			const searchParams = new URLSearchParams(location.search);
+			searchParams.delete("param2");
+			location.search = searchParams.toString();
+			console.log(location.href);
 
-			// Menampilkan kembali data kontak yang diperbarui dalam tabel
-			showContext();
+			showContacts();
 
-			// Mengosongkan nilai input setelah pembaruan berhasil
 			document.getElementById("name").value = "";
 			document.getElementById("phone").value = "";
 			document.getElementById("email").value = "";
 			document.getElementById("address").value = "";
 
-			// Mengembalikan tampilan tombol "Submit" dan menyembunyikan tombol "Update"
 			document.getElementById("submit").style.display = "block";
 			document.getElementById("update").style.display = "none";
 		}
 	};
 }
+
 function searchContacts() {
 	let searchText = document.getElementById("searchInput").value.toLowerCase();
-	let rows = document.querySelectorAll("#tableContext tbody tr");
+	let rows = document.querySelectorAll("#contactList tbody tr");
 
 	rows.forEach(function (row) {
 		let name = row.cells[0].innerText.toLowerCase();
@@ -151,11 +162,10 @@ function searchContacts() {
 			email.includes(searchText) ||
 			address.includes(searchText)
 		) {
-			row.style.display = ""; // Menampilkan baris jika cocok dengan kata kunci pencarian
+			row.style.display = "";
 		} else {
-			row.style.display = "none"; // Menyembunyikan baris jika tidak cocok dengan kata kunci pencarian
+			row.style.display = "none";
 		}
 	});
-	// Memanggil fungsi showContext saat dokumen selesai dimuat
 }
-document.onload = showContext();
+document.onload = showContacts();
